@@ -1,0 +1,98 @@
+<!doctype html>
+<!--
+	The link-preview image (static/og.png). Regenerate after changing it:
+	google-chrome --headless=new --hide-scrollbars --window-size=1200,630 \
+		--screenshot=static/og.png scripts/og-image.html
+-->
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<style>
+			@font-face {
+				font-family: 'Fraunces';
+				src: url('../node_modules/@fontsource-variable/fraunces/files/fraunces-latin-ext-wght-normal.woff2') format('woff2');
+				unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+			}
+			@font-face {
+				font-family: 'Fraunces';
+				src: url('../node_modules/@fontsource-variable/fraunces/files/fraunces-latin-wght-normal.woff2') format('woff2');
+			}
+			@font-face {
+				font-family: 'Inter';
+				src: url('../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2') format('woff2');
+			}
+			@font-face {
+				font-family: 'JetBrains Mono';
+				src: url('../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2') format('woff2');
+			}
+
+			html,
+			body {
+				margin: 0;
+				width: 1200px;
+				height: 630px;
+				overflow: hidden;
+			}
+
+			body {
+				box-sizing: border-box;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				padding: 72px 80px;
+				background: #faf9f6;
+				color: #17191c;
+				font-family: 'Inter', sans-serif;
+				border-top: 14px solid #0d7068;
+			}
+
+			.mark {
+				display: grid;
+				place-items: center;
+				width: 64px;
+				height: 64px;
+				border-radius: 14px;
+				background: #0d7068;
+				color: #faf9f6;
+				font: 700 40px/1 'Fraunces', serif;
+			}
+
+			h1 {
+				margin: 0;
+				font: 650 84px/1.02 'Fraunces', serif;
+				letter-spacing: -0.02em;
+			}
+
+			p {
+				margin: 22px 0 0;
+				font-size: 32px;
+				line-height: 1.35;
+				color: #5a6370;
+			}
+
+			.foot {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				font: 500 24px/1 'JetBrains Mono', monospace;
+				color: #5a6370;
+			}
+
+			.foot strong {
+				color: #0d7068;
+				font-weight: 700;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mark">h</div>
+		<div>
+			<h1>Halil İbrahim Öztürk</h1>
+			<p>Computer engineering student. I love the art of developing things.</p>
+		</div>
+		<div class="foot">
+			<span>Wolf · CPU Scheduler · Kings · Borsa · Topluluk</span>
+			<strong>halilio.dev</strong>
+		</div>
+	</body>
+</html>
