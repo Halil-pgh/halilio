@@ -28,7 +28,7 @@
 	<h1>{t.title}</h1>
 	<p class="lede">{t.lede}</p>
 	<div class="actions">
-		<a class="button primary" href={site.cv}>{t.downloadCv}</a>
+		<a class="button primary" href={site.cv} download="Halil_Ibrahim_Ozturk_CV.pdf">{t.downloadCv}</a>
 		<a class="button" href={site.github}>GitHub</a>
 		<a class="button" href={site.linkedin}>LinkedIn</a>
 		<a class="button" href="mailto:{site.email}">{t.email}</a>
