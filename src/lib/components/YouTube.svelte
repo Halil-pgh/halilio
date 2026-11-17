@@ -45,9 +45,9 @@
 	.frame {
 		position: relative;
 		aspect-ratio: 16 / 9;
-		border-radius: var(--radius);
 		overflow: hidden;
-		background: var(--surface-2);
+		border: 1px solid var(--border);
+		background: var(--surface);
 	}
 
 	iframe,
@@ -64,20 +64,30 @@
 		object-fit: cover;
 	}
 
+	/* [ ▶ Play video ], like the buttons elsewhere. */
 	.play {
 		position: absolute;
-		left: 16px;
-		bottom: 16px;
+		left: 14px;
+		bottom: 14px;
 		display: inline-flex;
 		align-items: center;
 		gap: 8px;
-		padding: 10px 16px;
-		border-radius: 999px;
+		min-height: 44px;
+		padding: 0 14px;
 		background: var(--accent);
 		color: var(--on-accent);
-		font-weight: 600;
+		font-weight: 700;
 		font-size: 0.9375rem;
-		box-shadow: var(--shadow);
+	}
+
+	.play::before {
+		content: '[';
+		content: '[' / '';
+	}
+
+	.play::after {
+		content: ']';
+		content: ']' / '';
 	}
 
 	.facade:hover .play {

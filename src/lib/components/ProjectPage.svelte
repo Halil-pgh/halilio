@@ -2,33 +2,43 @@
 	import type { Snippet } from 'svelte';
 	import { getProject, nextProject } from '$lib/projects';
 	import Media from './Media.svelte';
+	import Prompt from './Prompt.svelte';
 	import Seo from './Seo.svelte';
 
 	interface Props {
 		slug: string;
 		/** Replaces the project's card media at the top of the page (e.g. a video player). */
 		hero?: Snippet;
+		/** The name in the hero pane's border, e.g. "video". Defaults to one from the media kind. */
+		heroLabel?: string;
 		children: Snippet;
 	}
 
-	let { slug, hero, children }: Props = $props();
+	let { slug, hero, heroLabel, children }: Props = $props();
 
 	const project = $derived(getProject(slug));
 	const next = $derived(nextProject(slug));
+	const label = $derived(
+		heroLabel ?? { video: 'demo', image: 'screenshot', art: 'diagram' }[project.media.kind]
+	);
 </script>
 
 <Seo title={project.title} description={project.hook} />
 
-<article class="container">
-	<a class="back" href="/#work">← All work</a>
+<!-- Inside a project page the accent becomes the project's own color (see projects.ts). -->
+<article class="container" style:--tint="var(--{project.tint})">
+	<a class="back" href="/#work"><span aria-hidden="true">←</span>All work</a>
 
 	<header>
+		<Prompt path="~/projects/{project.slug}" command="cat README.md" />
 		<p class="eyebrow">{project.kind} · {project.context}</p>
 		<h1>{project.title}</h1>
 		<p class="lede">{project.hook}</p>
-		<ul class="tags" aria-label="Built with">
-			{#each project.stack as item}<li>{item}</li>{/each}
-		</ul>
+		<div class="stack">
+			<span>stack:</span>&#32;<ul class="tags" aria-label="Built with" lang="en">
+				{#each project.stack as item}<li>{item}</li>{/each}
+			</ul>
+		</div>
 		<div class="links">
 			{#each project.links as link, i}
 				<a class="button" class:primary={i === 0} href={link.href}>{link.label} ↗</a>
@@ -36,11 +46,14 @@
 		</div>
 	</header>
 
-	{#if hero}
-		<div class="hero">{@render hero()}</div>
-	{:else}
-		<div class="hero media"><Media media={project.media} eager /></div>
-	{/if}
+	<div class="hero pane">
+		<span class="pane-title" aria-hidden="true">{label}</span>
+		{#if hero}
+			{@render hero()}
+		{:else}
+			<div class="frame"><Media media={project.media} eager /></div>
+		{/if}
+	</div>
 
 	<div class="prose">
 		{#if project.why}
@@ -54,46 +67,65 @@
 		{/if}
 	</div>
 
-	<a class="next" href="/projects/{next.slug}">
-		<span class="eyebrow">Next project</span>
+	<a class="pane next" href="/projects/{next.slug}" style:--tint="var(--{next.tint})">
+		<span class="pane-title" aria-hidden="true">next</span>
+		<span class="visually-hidden">Next project:</span>
+		<span class="eyebrow">{next.kind} · {next.context}</span>
 		<span class="next-title">{next.title} →</span>
 	</a>
 </article>
 
 <style>
 	article {
-		padding-top: 32px;
+		--accent: var(--tint);
+		--accent-hover: color-mix(in srgb, var(--tint) 75%, var(--bright));
+		padding-top: 20px;
 	}
 
 	.back {
-		font-size: 0.9375rem;
+		display: inline-flex;
+		align-items: center;
+		gap: 1ch;
+		min-height: 44px;
+		font-size: 0.875rem;
 		color: var(--muted);
 		text-decoration: none;
 	}
 
 	.back:hover {
-		color: var(--accent);
+		color: var(--bright);
 	}
 
 	header {
-		max-width: 760px;
-		margin-top: 32px;
+		max-width: 780px;
+		margin-top: 20px;
+	}
+
+	.eyebrow {
+		margin-top: 18px;
 	}
 
 	h1 {
-		font-size: clamp(2.4rem, 6vw, 3.6rem);
-		margin-top: 10px;
+		margin-top: 8px;
+		font-size: clamp(2rem, 6vw, 3.25rem);
+		color: var(--tint);
 	}
 
 	.lede {
+		margin-top: 14px;
+		font-size: 1.0625rem;
+		line-height: 1.6;
+	}
+
+	.stack {
 		margin-top: 16px;
-		font-size: 1.25rem;
-		line-height: 1.55;
+		font-size: 0.8125rem;
 		color: var(--muted);
 	}
 
-	.tags {
-		margin-top: 20px;
+	.stack .tags,
+	.stack .tags li {
+		display: inline;
 	}
 
 	.links {
@@ -104,17 +136,17 @@
 	}
 
 	.hero {
-		margin: 40px 0 48px;
+		margin: 48px 0 52px;
+		padding: 22px 14px 14px;
 	}
 
-	.hero.media {
+	.frame {
 		aspect-ratio: 16 / 10;
 		max-height: 640px;
 		width: 100%;
-		border-radius: var(--radius);
 		overflow: hidden;
 		border: 1px solid var(--border);
-		background: var(--surface-2);
+		background: var(--surface);
 	}
 
 	.prose > :global(h2:first-child) {
@@ -124,24 +156,21 @@
 	.next {
 		display: flex;
 		flex-direction: column;
-		gap: 4px;
-		margin-top: 72px;
-		padding: 24px 28px;
-		border: 1px solid var(--border);
-		border-radius: var(--radius);
-		background: var(--surface);
+		gap: 2px;
+		max-width: 72ch;
+		margin-top: 80px;
+		padding: 24px 22px 20px;
 		text-decoration: none;
-		max-width: 68ch;
+		transition: border-color 0.15s;
 	}
 
 	.next:hover {
-		border-color: var(--accent);
+		border-color: var(--tint);
 	}
 
 	.next-title {
-		font-family: var(--font-display);
-		font-size: 1.5rem;
-		font-weight: 650;
-		color: var(--text);
+		font-size: 1.375rem;
+		font-weight: 750;
+		color: var(--tint);
 	}
 </style>

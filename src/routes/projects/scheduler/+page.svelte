@@ -21,7 +21,7 @@
 	};
 </script>
 
-<ProjectPage slug="scheduler">
+<ProjectPage slug="scheduler" heroLabel="video">
 	{#snippet hero()}
 		<YouTube
 			id="aF2OY-GZKmM"
