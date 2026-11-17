@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Prompt from '$lib/components/Prompt.svelte';
 	import Seo from '$lib/components/Seo.svelte';
 </script>
 
@@ -8,7 +9,7 @@
 />
 
 <div class="container page">
-	<p class="eyebrow">About</p>
+	<Prompt command="cat about.md" />
 	<h1>Halil İbrahim Öztürk</h1>
 
 	<div class="prose">
@@ -92,16 +93,17 @@
 
 <style>
 	.page {
-		padding-top: clamp(40px, 8vw, 88px);
+		padding-top: clamp(32px, 7vw, 64px);
 	}
 
 	h1 {
-		margin: 10px 0 28px;
-		font-size: clamp(2.4rem, 6vw, 3.6rem);
+		margin: 12px 0 28px;
+		font-size: clamp(1.75rem, 5.4vw, 2.75rem);
 	}
 
 	.lede {
-		font-size: 1.25rem;
-		line-height: 1.55;
+		font-size: 1.0625rem;
+		line-height: 1.65;
+		color: var(--bright);
 	}
 </style>
