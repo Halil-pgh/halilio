@@ -20,7 +20,7 @@
 			<li><a href={site.linkedin} lang="en">LinkedIn</a></li>
 			<li><a href={site.cv}>{t.cvPdf}</a></li>
 		</ul>
-		<p class="copy">© 2026 {site.name}<span class="cursor" aria-hidden="true"></span></p>
+		<p class="copy">© 2026 {site.name}</p>
 	</div>
 </footer>
 
@@ -62,26 +62,8 @@
 	}
 
 	.copy {
-		display: flex;
-		align-items: center;
 		margin-top: 32px;
 		font-size: 0.8125rem;
 		color: var(--muted);
-	}
-
-	/* The block cursor at the end of the session. It stays solid for reduced motion (app.css). */
-	.cursor {
-		display: inline-block;
-		width: 0.6em;
-		height: 1.25em;
-		margin-left: 0.6em;
-		background: var(--accent);
-		animation: blink 1.1s steps(1) infinite;
-	}
-
-	@keyframes blink {
-		50% {
-			opacity: 0;
-		}
 	}
 </style>
