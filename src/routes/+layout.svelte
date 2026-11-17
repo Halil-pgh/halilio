@@ -1,7 +1,6 @@
 <script lang="ts">
-	import '@fontsource-variable/inter';
-	import '@fontsource-variable/fraunces';
 	import '@fontsource-variable/jetbrains-mono';
+	import '@fontsource-variable/jetbrains-mono/wght-italic.css';
 	import '../app.css';
 	import SiteHeader from '$lib/components/SiteHeader.svelte';
 	import SiteFooter from '$lib/components/SiteFooter.svelte';
@@ -26,9 +25,9 @@
 		top: -48px;
 		z-index: 20;
 		padding: 8px 14px;
-		border-radius: 8px;
 		background: var(--accent);
 		color: var(--on-accent);
+		font-weight: 700;
 	}
 
 	.skip:focus {

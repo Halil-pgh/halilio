@@ -5,13 +5,15 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="text-scale" content="scale" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.svg" type="image/svg+xml" />
-		<meta name="theme-color" content="#faf9f6" media="(prefers-color-scheme: light)" />
-		<meta name="theme-color" content="#0f1215" media="(prefers-color-scheme: dark)" />
+		<meta name="theme-color" content="#1d1d1d" />
 		<script>
-			// Apply a saved theme before the first paint, so a dark-mode visitor never sees a white flash.
+			// Dark is the default. Apply a saved choice before the first paint, so a visitor who picked
+			// light never sees a dark flash (and the browser bar matches the header).
 			try {
 				const theme = localStorage.getItem('theme');
 				if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+				if (theme === 'light')
+					document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f0f0f0');
 			} catch {}
 		</script>
 		%sveltekit.head%

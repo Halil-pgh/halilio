@@ -3,16 +3,17 @@
 		label?: string;
 	}
 
-	let { label = 'Toggle dark mode' }: Props = $props();
+	let { label = 'Toggle light mode' }: Props = $props();
 
-	// Which icon shows is decided by CSS from the same rules as the colors, so the button is right
+	// Which icon shows is decided by CSS from the same attribute as the colors, so the button is right
 	// on the first paint and needs no JavaScript to look correct. The click handler only flips it.
 	function toggle() {
 		const root = document.documentElement;
-		const current =
-			root.dataset.theme ?? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-		const next = current === 'dark' ? 'light' : 'dark';
+		const next = root.dataset.theme === 'light' ? 'dark' : 'light';
 		root.dataset.theme = next;
+		document
+			.querySelector('meta[name="theme-color"]')
+			?.setAttribute('content', next === 'light' ? '#f0f0f0' : '#1d1d1d');
 		try {
 			localStorage.setItem('theme', next);
 		} catch {
@@ -21,16 +22,7 @@
 	}
 </script>
 
-<button type="button" class="toggle" onclick={toggle} aria-label={label}>
-	<svg class="moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-		<path
-			d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="1.8"
-			stroke-linejoin="round"
-		/>
-	</svg>
+<button type="button" class="toggle" onclick={toggle} aria-label={label} title={label}>
 	<svg class="sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
 		<circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8" />
 		<path
@@ -40,45 +32,44 @@
 			stroke-linecap="round"
 		/>
 	</svg>
+	<svg class="moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+		<path
+			d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="1.8"
+			stroke-linejoin="round"
+		/>
+	</svg>
 </button>
 
 <style>
 	.toggle {
 		display: grid;
 		place-items: center;
-		width: 40px;
-		height: 40px;
+		width: 44px;
+		height: 44px;
 		padding: 0;
-		border: 1px solid var(--border);
-		border-radius: 999px;
-		background: var(--surface);
-		color: var(--text);
+		border: 0;
+		background: transparent;
+		color: var(--muted);
 		cursor: pointer;
 	}
 
 	.toggle:hover {
-		color: var(--accent);
-		border-color: var(--accent);
+		color: var(--bright);
 	}
 
-	.sun {
+	/* Dark (the default) shows the sun: pressing it brings the light. */
+	.moon {
 		display: none;
 	}
 
-	@media (prefers-color-scheme: dark) {
-		:global(:root:not([data-theme='light'])) .sun {
-			display: block;
-		}
-		:global(:root:not([data-theme='light'])) .moon {
-			display: none;
-		}
+	:global(:root[data-theme='light']) .sun {
+		display: none;
 	}
 
-	:global(:root[data-theme='dark']) .sun {
+	:global(:root[data-theme='light']) .moon {
 		display: block;
-	}
-
-	:global(:root[data-theme='dark']) .moon {
-		display: none;
 	}
 </style>
