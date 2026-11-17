@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { newTab } from '$lib/links';
 	import ProjectPage from '$lib/components/ProjectPage.svelte';
 </script>
 
@@ -74,7 +75,7 @@ python -m wolf play --view public    # see only what a villager sees
 python -m wolf play --backend mock   # instant, free, no AI
 python -m wolf replay games/&lt;file&gt;.jsonl</code></pre>
 	<p>
-		Setup, flags and the full rules are in the <a href="https://github.com/Halil-pgh/wolf">README on
+		Setup, flags and the full rules are in the <a href="https://github.com/Halil-pgh/wolf" {...newTab}>README on
 		GitHub</a>.
 	</p>
 </ProjectPage>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { newTab } from '$lib/links';
 	import Flow from '$lib/components/Flow.svelte';
 	import ProjectPage from '$lib/components/ProjectPage.svelte';
 </script>
@@ -6,7 +7,7 @@
 <ProjectPage slug="borsa">
 	<h2>What it shows</h2>
 	<p>
-		<a href="https://borsa.halilio.dev/today">The main board</a> draws the BIST 100 as a treemap: one
+		<a href="https://borsa.halilio.dev/today" {...newTab}>The main board</a> draws the BIST 100 as a treemap: one
 		rectangle per company, its area proportional to market cap, green or red by how far the price has
 		moved since yesterday’s close. Above it sit the index move, how much lira value was added to or
 		wiped off the index today, total turnover, and how many stocks rose or fell.
@@ -15,7 +16,7 @@
 		Clicking a tile opens a stock card: the live price, where today’s move sits in the ±10% daily
 		limit, the company’s share of the index and of today’s move, and a year of price history you can
 		scrub through. The toolbar knows the exchange’s hours, holidays and half days, and counts down to
-		the next open or close. There’s also <a href="https://borsa.halilio.dev/hangisi"
+		the next open or close. There’s also <a href="https://borsa.halilio.dev/hangisi" {...newTab}
 			>Hangisi daha büyük?</a
 		>, a game where you pick which of two companies is bigger, and the pairs get closer the longer
 		your streak runs.

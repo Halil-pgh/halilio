@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import { getProject, nextProject } from '$lib/projects';
+	import { linkAttrs } from '$lib/links';
 	import Media from './Media.svelte';
 	import Prompt from './Prompt.svelte';
 	import Seo from './Seo.svelte';
@@ -41,7 +42,9 @@
 		</div>
 		<div class="links">
 			{#each project.links as link, i}
-				<a class="button" class:primary={i === 0} href={link.href}>{link.label} ↗</a>
+				<a class="button" class:primary={i === 0} href={link.href} {...linkAttrs(link.href)}
+					>{link.label} ↗</a
+				>
 			{/each}
 		</div>
 	</header>

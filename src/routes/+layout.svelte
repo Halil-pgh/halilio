@@ -20,6 +20,8 @@
 		{@render children()}
 	</main>
 	<SiteFooter />
+	<!-- Read out after every link that opens a new tab (aria-describedby in $lib/links). -->
+	<p id="new-tab-note" hidden>{ui[langOf(page.url.pathname)].newTab}</p>
 </div>
 
 <style>

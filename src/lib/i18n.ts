@@ -38,7 +38,8 @@ export const ui = {
 		footerCommand: 'echo "get in touch"',
 		emailLine: 'The fastest way to reach me is email:',
 		cvPdf: 'CV (PDF)',
-		skip: 'Skip to content'
+		skip: 'Skip to content',
+		newTab: 'Opens in a new tab'
 	},
 	tr: {
 		home: '/tr',
@@ -54,6 +55,7 @@ export const ui = {
 		footerCommand: 'echo "iletişim"',
 		emailLine: 'Bana en hızlı e-postayla ulaşabilirsiniz:',
 		cvPdf: 'CV (PDF)',
-		skip: 'İçeriğe geç'
+		skip: 'İçeriğe geç',
+		newTab: 'Yeni sekmede açılır'
 	}
 } satisfies Record<Lang, Record<string, string>>;

@@ -2,6 +2,7 @@
 	import { page } from '$app/state';
 	import { langOf, ui } from '$lib/i18n';
 	import { site } from '$lib/projects';
+	import { newTab } from '$lib/links';
 	import Prompt from './Prompt.svelte';
 
 	const t = $derived(ui[langOf(page.url.pathname)]);
@@ -16,9 +17,9 @@
 		</p>
 		<ul>
 			<!-- English names: lowercasing them under lang="tr" would turn LinkedIn into "linkedın". -->
-			<li><a href={site.github} lang="en">GitHub</a></li>
-			<li><a href={site.linkedin} lang="en">LinkedIn</a></li>
-			<li><a href={site.cv}>{t.cvPdf}</a></li>
+			<li><a href={site.github} lang="en" {...newTab}>GitHub</a></li>
+			<li><a href={site.linkedin} lang="en" {...newTab}>LinkedIn</a></li>
+			<li><a href={site.cv} {...newTab}>{t.cvPdf}</a></li>
 		</ul>
 		<p class="copy">© 2026 {site.name}</p>
 	</div>

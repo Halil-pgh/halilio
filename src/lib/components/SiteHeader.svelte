@@ -2,6 +2,7 @@
 	import { page } from '$app/state';
 	import { langOf, switchTarget, ui } from '$lib/i18n';
 	import { site } from '$lib/projects';
+	import { newTab } from '$lib/links';
 	import ThemeToggle from './ThemeToggle.svelte';
 
 	const path = $derived(page.url.pathname);
@@ -37,7 +38,7 @@
 					>
 				</li>
 				<li>
-					<a href={site.cv}><span class="num">3:</span>{t.cv}</a>
+					<a href={site.cv} {...newTab}><span class="num">3:</span>{t.cv}</a>
 				</li>
 			</ul>
 		</nav>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { newTab } from '$lib/links';
 	import Flow from '$lib/components/Flow.svelte';
 	import ProjectPage from '$lib/components/ProjectPage.svelte';
 </script>
@@ -54,7 +55,7 @@
 	<h2>Background</h2>
 	<p>
 		Kings started out on SFML’s own networking. In summer 2024 I wrote
-		<a href="https://github.com/Halil-pgh/LearningEnet">LearningEnet</a>, a small terminal client and
+		<a href="https://github.com/Halil-pgh/LearningEnet" {...newTab}>LearningEnet</a>, a small terminal client and
 		server, to learn ENet and cereal, then moved Kings over to them.
 	</p>
 </ProjectPage>

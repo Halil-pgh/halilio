@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { experience, intro } from '$lib/content';
 	import type { Lang } from '$lib/i18n';
+	import { newTab } from '$lib/links';
 	import { getProject, projects, site, type Project } from '$lib/projects';
 	import Media from './Media.svelte';
 	import Prompt from './Prompt.svelte';
@@ -46,8 +47,8 @@
 		</p>
 		<div class="actions">
 			<a class="button primary" href={site.cv} download="Halil_Ibrahim_Ozturk_CV.pdf">{t.downloadCv}</a>
-			<a class="button" href={site.github}>GitHub</a>
-			<a class="button" href={site.linkedin}>LinkedIn</a>
+			<a class="button" href={site.github} {...newTab}>GitHub</a>
+			<a class="button" href={site.linkedin} {...newTab}>LinkedIn</a>
 			<a class="button" href="mailto:{site.email}">{t.email}</a>
 		</div>
 	</div>

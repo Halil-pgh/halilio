@@ -24,6 +24,8 @@
 		<a
 			class="facade"
 			href="https://youtu.be/{id}"
+			target="_blank"
+			rel="noopener"
 			aria-label="Play video: {title}"
 			onclick={(event) => {
 				event.preventDefault();
