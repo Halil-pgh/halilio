@@ -66,7 +66,10 @@
 	</p>
 
 	<h2>Running it</h2>
-	<pre><code>python -m wolf play                  # 9 players on Sonnet
+	<!-- Focusable so keyboard users can scroll it sideways on small screens (WCAG 2.1.1; axe
+	     scrollable-region-focusable). Svelte's lint doesn't know about scrollable regions. -->
+	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+	<pre tabindex="0" role="region" aria-label="Commands to run Wolf"><code>python -m wolf play                  # 9 players on Sonnet
 python -m wolf play --view public    # see only what a villager sees
 python -m wolf play --backend mock   # instant, free, no AI
 python -m wolf replay games/&lt;file&gt;.jsonl</code></pre>

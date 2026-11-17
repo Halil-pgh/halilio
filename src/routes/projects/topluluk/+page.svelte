@@ -45,7 +45,10 @@
 		The interest vector is updated incrementally: each profile stores the weighted sum and the total
 		weight, so a new interaction is one vector addition rather than a pass over your whole history.
 	</p>
-	<pre><code>def update_interaction(self, interaction_embedding, weight):
+	<!-- Focusable so keyboard users can scroll it sideways on small screens (WCAG 2.1.1; axe
+	     scrollable-region-focusable). Svelte's lint doesn't know about scrollable regions. -->
+	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+	<pre tabindex="0" role="region" aria-label="update_interaction, in Python"><code>def update_interaction(self, interaction_embedding, weight):
     if self.weighted_sum_vector is not None:
         ws_vec = np.array(self.weighted_sum_vector)
     else:

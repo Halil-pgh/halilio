@@ -88,7 +88,10 @@
 	</p>
 
 	<h2>One workload, five runs</h2>
-	<div class="table-scroll">
+	<!-- Focusable so keyboard users can scroll it sideways on small screens (WCAG 2.1.1; axe
+	     scrollable-region-focusable). Svelte's lint doesn't know about scrollable regions. -->
+	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+	<div class="table-scroll" tabindex="0" role="region" aria-label="Results of five runs on one workload">
 		<table>
 			<thead>
 				<tr>
