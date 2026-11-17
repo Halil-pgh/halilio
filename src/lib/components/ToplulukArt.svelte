@@ -52,34 +52,35 @@
 		height: 100%;
 	}
 
+	/* --tint is the project's color when the art sits on a Topluluk card or page. */
 	.bg {
-		fill: var(--surface-2);
+		fill: var(--surface);
 	}
 
 	.topic {
 		fill: var(--muted);
-		opacity: 0.35;
+		opacity: 0.45;
 	}
 
 	.near {
-		fill: var(--accent);
+		fill: var(--tint, var(--accent));
 	}
 
 	.link {
-		stroke: var(--accent);
+		stroke: var(--tint, var(--accent));
 		stroke-width: 1.5;
 		stroke-dasharray: 4 4;
-		opacity: 0.8;
+		opacity: 0.9;
 	}
 
 	.halo {
-		fill: var(--accent-soft);
-		stroke: var(--accent);
+		fill: color-mix(in srgb, var(--yellow) 14%, transparent);
+		stroke: var(--yellow);
 		stroke-width: 1.5;
 	}
 
 	.you {
-		fill: var(--accent);
+		fill: var(--yellow);
 	}
 
 	.label,
@@ -90,7 +91,8 @@
 
 	.label {
 		font-size: 15px;
-		font-weight: 600;
+		font-weight: 700;
+		fill: var(--yellow);
 	}
 
 	.legend {

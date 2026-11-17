@@ -8,9 +8,13 @@ export interface Link {
 	href: string;
 }
 
+/** The terminal palette in app.css. Each project takes one for its name, borders and links. */
+export type Tint = 'red' | 'yellow' | 'blue' | 'lime' | 'magenta';
+
 export interface Project {
 	slug: string;
 	title: string;
+	tint: Tint;
 	/** What kind of thing it is, in a few words. */
 	kind: string;
 	/** One sentence for the card on the home page. */
@@ -32,6 +36,7 @@ export interface Project {
 export const projects: Project[] = [
 	{
 		slug: 'wolf',
+		tint: 'red',
 		title: 'Wolf',
 		kind: 'Multi-agent LLM game',
 		hook: 'Nine Claude agents play Werewolf: they scheme at night, bluff by day, and vote each other out. You watch every private thought.',
@@ -59,6 +64,7 @@ export const projects: Project[] = [
 	},
 	{
 		slug: 'scheduler',
+		tint: 'yellow',
 		title: 'CPU Scheduler Simulator',
 		kind: 'Systems simulation',
 		hook: 'Round Robin, MLFQ, CFS and aging priority on the same workload, measured by one accountant that has never heard of any of them.',
@@ -81,6 +87,7 @@ export const projects: Project[] = [
 	},
 	{
 		slug: 'kings',
+		tint: 'blue',
 		title: 'Kings',
 		kind: 'Multiplayer game',
 		hook: 'A small top-down building game in C++ where the host runs the server on its own thread and everyone else joins over UDP.',
@@ -106,6 +113,7 @@ export const projects: Project[] = [
 	},
 	{
 		slug: 'borsa',
+		tint: 'lime',
 		title: 'Borsa',
 		kind: 'Market dashboard',
 		hook: 'The BIST 100 as one live treemap, stitched together from three free data sources with no API keys.',
@@ -130,6 +138,7 @@ export const projects: Project[] = [
 	},
 	{
 		slug: 'topluluk',
+		tint: 'magenta',
 		title: 'Topluluk',
 		kind: 'Community platform',
 		hook: 'A full community platform built solo, with recommendations that come from sentence embeddings rather than popularity.',

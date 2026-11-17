@@ -9,32 +9,77 @@ export interface Job {
 	link?: { label: string; href: string };
 }
 
-export const intro = {
+/** Running text where some phrases link to a project page, colored like that project. */
+export type Rich = (string | { text: string; slug: string })[];
+
+export interface Intro {
+	description: string;
+	eyebrow: string;
+	tagline: string;
+	lede: Rich;
+	downloadCv: string;
+	email: string;
+	workTitle: string;
+	readMore: string;
+	experienceTitle: string;
+	/** The shell commands above each section; the file names follow the page's language. */
+	commands: { whoami: string; about: string; work: string; experience: string };
+}
+
+export const intro: Record<Lang, Intro> = {
 	en: {
 		description:
 			'Computer engineering student at İzmir Institute of Technology. I love the art of developing things: a CPU scheduler simulator, a multiplayer game, and a Werewolf game played by AI agents.',
 		eyebrow: 'Computer Engineering · İzmir Institute of Technology · Class of 2027',
-		title: 'Hi, I’m Halil. I\u00a0love the art of developing things.',
-		lede: 'Some of what I make ends up useful, some maybe not, but I enjoy the process either way. A few of them: a CPU scheduler simulator, a multiplayer game, and a Werewolf game played by AI agents. I’ve interned at ASELSAN and TechNarts, and I’m looking for internships and new-grad roles starting 2027.',
+		tagline: 'I love the art of developing things.',
+		lede: [
+			'Some of what I make ends up useful, some maybe not, but I enjoy the process either way. A few of them: a ',
+			{ text: 'CPU scheduler simulator', slug: 'scheduler' },
+			', a ',
+			{ text: 'multiplayer game', slug: 'kings' },
+			', and a ',
+			{ text: 'Werewolf game played by AI agents', slug: 'wolf' },
+			'. I’ve interned at ASELSAN and TechNarts, and I’m looking for internships and new-grad roles starting 2027.'
+		],
 		downloadCv: 'Download CV',
 		email: 'Email',
 		workTitle: 'Selected work',
 		readMore: 'Read more →',
-		experienceTitle: 'Experience'
+		experienceTitle: 'Experience',
+		commands: {
+			whoami: 'whoami',
+			about: 'cat about.txt',
+			work: 'ls projects/',
+			experience: 'git log --graph experience'
+		}
 	},
 	tr: {
 		description:
 			'İzmir Yüksek Teknoloji Enstitüsü’nde bilgisayar mühendisliği öğrencisi. Bir şeyler geliştirme sanatını seviyorum: CPU scheduler simülatörü, multiplayer bir oyun ve AI agent’ların oynadığı bir Vampir Köylü oyunu.',
 		eyebrow: 'Bilgisayar Mühendisliği · İzmir Yüksek Teknoloji Enstitüsü · Mezuniyet 2027',
-		title: 'Merhaba, ben Halil. Bir şeyler geliştirme sanatını seviyorum.',
-		lede: 'Yaptıklarımın bazıları işe yarıyor, bazıları belki yaramıyor ama süreçten her seferinde keyif alıyorum. Birkaçı: bir CPU scheduler simülatörü, multiplayer bir oyun ve AI agent’ların oynadığı bir Vampir Köylü oyunu. ASELSAN ve TechNarts’ta staj yaptım; 2027’den itibaren staj ve yeni mezun pozisyonlarına bakıyorum.',
+		tagline: 'Bir şeyler geliştirme sanatını seviyorum.',
+		lede: [
+			'Yaptıklarımın bazıları işe yarıyor, bazıları belki yaramıyor ama süreçten her seferinde keyif alıyorum. Birkaçı: bir ',
+			{ text: 'CPU scheduler simülatörü', slug: 'scheduler' },
+			', ',
+			{ text: 'multiplayer bir oyun', slug: 'kings' },
+			' ve ',
+			{ text: 'AI agent’ların oynadığı bir Vampir Köylü oyunu', slug: 'wolf' },
+			'. ASELSAN ve TechNarts’ta staj yaptım; 2027’den itibaren staj ve yeni mezun pozisyonlarına bakıyorum.'
+		],
 		downloadCv: 'CV’yi indir',
 		email: 'E-posta',
 		workTitle: 'Projeler',
 		readMore: 'Devamını oku (İngilizce) →',
-		experienceTitle: 'Deneyim'
+		experienceTitle: 'Deneyim',
+		commands: {
+			whoami: 'whoami',
+			about: 'cat hakkimda.txt',
+			work: 'ls projeler/',
+			experience: 'git log --graph deneyim'
+		}
 	}
-} satisfies Record<Lang, Record<string, string>>;
+};
 
 export const experience: Record<Lang, Job[]> = {
 	en: [

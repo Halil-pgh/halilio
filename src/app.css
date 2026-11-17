@@ -173,10 +173,13 @@ kbd {
 	text-transform: lowercase;
 }
 
+/* pre-wrap keeps the spaces around the dot (they'd collapse at the start of a flex item) but
+   still lets a long stack wrap between items. The no-break space keeps the dot on the line
+   before the break, never at the start of the next one. */
 .tags li + li::before {
-	content: ' · ';
-	content: ' · ' / '';
-	white-space: pre;
+	content: '\00a0· ';
+	content: '\00a0· ' / '';
+	white-space: pre-wrap;
 }
 
 /* [ Button ]. The brackets are drawn by CSS and hidden from screen readers. */
