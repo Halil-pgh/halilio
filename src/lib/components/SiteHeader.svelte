@@ -4,121 +4,202 @@
 	import { site } from '$lib/projects';
 	import ThemeToggle from './ThemeToggle.svelte';
 
-	const lang = $derived(langOf(page.url.pathname));
+	const path = $derived(page.url.pathname);
+	const lang = $derived(langOf(path));
 	const t = $derived(ui[lang]);
+
+	// The active "window" in the tmux bar. Project pages light up "work" without claiming to be it.
+	const active = $derived(
+		path === t.home ? 'home' : path === t.aboutHref ? 'about' : path.startsWith('/projects/') ? 'work' : ''
+	);
 </script>
 
 <header>
 	<div class="container bar">
-		<a href={t.home} class="brand">
-			<span class="long">Halil İbrahim Öztürk</span>
-			<span class="short">Halil Öztürk</span>
-		</a>
+		<a href={t.home} class="brand">halilio</a>
 		<nav aria-label="Main">
-			<a href="{t.home}#work">{t.work}</a>
-			<a href={t.aboutHref}>{t.about}</a>
-			<a class="cv-link" href={site.cv}>{t.cv}</a>
+			<ul>
+				<li class="home-window">
+					<a
+						href={t.home}
+						class:active={active === 'home'}
+						aria-current={active === 'home' ? 'page' : undefined}><span class="num">0:</span>{t.homeLabel}</a
+					>
+				</li>
+				<li>
+					<a href="{t.home}#work" class:active={active === 'work'}><span class="num">1:</span>{t.work}</a>
+				</li>
+				<li>
+					<a
+						href={t.aboutHref}
+						class:active={active === 'about'}
+						aria-current={active === 'about' ? 'page' : undefined}><span class="num">2:</span>{t.about}</a
+					>
+				</li>
+				<li>
+					<a href={site.cv}><span class="num">3:</span>{t.cv}</a>
+				</li>
+			</ul>
+		</nav>
+		<div class="tools">
 			<a
 				class="lang"
-				href={switchTarget(page.url.pathname)}
+				href={switchTarget(path)}
 				hreflang={lang === 'en' ? 'tr' : 'en'}
 				lang={lang === 'en' ? 'tr' : 'en'}
 				aria-label={t.switchLabel}
 				title={t.switchLabel}>{t.switchText}</a
 			>
 			<ThemeToggle label={t.toggleTheme} />
-		</nav>
+		</div>
 	</div>
 </header>
 
 <style>
 	header {
-		position: sticky;
-		top: 0;
-		z-index: 10;
-		background: color-mix(in srgb, var(--bg) 88%, transparent);
-		backdrop-filter: blur(10px);
-		-webkit-backdrop-filter: blur(10px);
+		background: var(--surface);
 		border-bottom: 1px solid var(--border);
+		font-size: 0.875rem;
 	}
 
+	/* Phones: two rows. The name and the toggles on top, the windows underneath. */
 	.bar {
-		display: flex;
+		display: grid;
+		grid-template-columns: auto 1fr;
+		grid-template-areas:
+			'brand tools'
+			'nav nav';
 		align-items: center;
-		justify-content: space-between;
-		gap: 16px;
-		min-height: 64px;
 	}
 
 	.brand {
-		font-family: var(--font-display);
-		font-weight: 650;
-		font-size: 1.0625rem;
-		color: var(--text);
+		grid-area: brand;
+		justify-self: start;
+		display: flex;
+		align-items: center;
+		min-height: 44px;
+		padding: 0 12px;
+		background: var(--accent);
+		color: var(--on-accent);
+		font-weight: 800;
 		text-decoration: none;
-		white-space: nowrap;
 	}
 
-	.short {
-		display: none;
+	.brand:hover {
+		background: var(--accent-hover);
+		color: var(--on-accent);
 	}
 
 	nav {
+		grid-area: nav;
+		min-width: 0;
+		border-top: 1px solid var(--border);
+	}
+
+	ul {
 		display: flex;
-		align-items: center;
-		gap: clamp(10px, 2.6vw, 24px);
+		flex-wrap: wrap;
+		margin: 0 0 0 -10px;
+		padding: 0;
+		list-style: none;
 	}
 
 	nav a {
-		color: var(--muted);
+		display: flex;
+		align-items: center;
+		min-height: 44px;
+		padding: 0 10px;
+		color: var(--text);
 		text-decoration: none;
-		font-size: 0.9375rem;
-		font-weight: 500;
+		text-transform: lowercase;
 		white-space: nowrap;
 	}
 
 	nav a:hover {
-		color: var(--text);
+		background: var(--surface-2);
+		color: var(--bright);
+	}
+
+	.num {
+		color: var(--muted);
+	}
+
+	nav a.active {
+		background: var(--text);
+		color: var(--bg);
+	}
+
+	nav a.active .num {
+		color: inherit;
+	}
+
+	nav a.active::after {
+		content: '*';
+		content: '*' / '';
+	}
+
+	/* The name already leads home, so phones drop window 0 to keep the rest on one line. */
+	.home-window {
+		display: none;
+	}
+
+	.tools {
+		grid-area: tools;
+		justify-self: end;
+		display: flex;
+		align-items: center;
+		margin-right: -10px;
 	}
 
 	.lang {
-		font-family: var(--font-mono);
-		font-size: 0.8125rem;
-		padding: 4px 7px;
-		border: 1px solid var(--border);
-		border-radius: 6px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 44px;
+		min-height: 44px;
+		padding: 0 6px;
+		color: var(--muted);
+		text-decoration: none;
+		text-transform: lowercase;
+	}
+
+	.lang::before {
+		content: '[';
+		content: '[' / '';
+	}
+
+	.lang::after {
+		content: ']';
+		content: ']' / '';
 	}
 
 	.lang:hover {
-		border-color: var(--accent);
-		color: var(--accent);
+		color: var(--bright);
 	}
 
-	@media (max-width: 560px) {
-		.long {
-			display: none;
+	/* Wider screens: one sticky row, like tmux's status line. */
+	@media (min-width: 640px) {
+		header {
+			position: sticky;
+			top: 0;
+			z-index: 10;
 		}
-		.short {
-			display: inline;
-		}
-	}
 
-	/* On narrow phones the CV link goes; the CV button is right below it on the home page and in the footer. */
-	@media (max-width: 440px) {
-		.cv-link {
-			display: none;
-		}
-	}
-
-	@media (max-width: 400px) {
 		.bar {
-			gap: 10px;
+			grid-template-columns: auto 1fr auto;
+			grid-template-areas: 'brand nav tools';
 		}
-		.brand {
-			font-size: 1rem;
-		}
+
 		nav {
-			gap: 8px;
+			border-top: 0;
+		}
+
+		ul {
+			margin: 0;
+		}
+
+		.home-window {
+			display: block;
 		}
 	}
 </style>

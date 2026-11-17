@@ -26,6 +26,7 @@ export function switchTarget(pathname: string): string {
 export const ui = {
 	en: {
 		home: '/',
+		homeLabel: 'Home',
 		work: 'Work',
 		about: 'About',
 		aboutHref: '/about',
@@ -40,6 +41,7 @@ export const ui = {
 	},
 	tr: {
 		home: '/tr',
+		homeLabel: 'Ana sayfa',
 		work: 'Projeler',
 		about: 'Hakkımda',
 		aboutHref: '/tr/hakkimda',
