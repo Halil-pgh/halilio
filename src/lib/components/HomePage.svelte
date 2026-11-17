@@ -73,7 +73,7 @@
 			<h3>{featured.title}</h3>
 			<p class="hook">{card(featured).hook}</p>
 			<div class="stack">
-				<span>stack:</span>&#32;<ul class="tags">
+				<span>stack:</span>&#32;<ul class="tags" lang="en">
 					{#each featured.stack as item}<li>{item}</li>{/each}
 				</ul>
 			</div>
@@ -96,7 +96,7 @@
 					<h3>{project.title}</h3>
 					<p class="hook">{card(project).hook}</p>
 					<div class="stack">
-						<span>stack:</span>&#32;<ul class="tags">
+						<span>stack:</span>&#32;<ul class="tags" lang="en">
 							{#each project.stack as item}<li>{item}</li>{/each}
 						</ul>
 					</div>

@@ -35,6 +35,7 @@ export const ui = {
 		switchLabel: 'Türkçe',
 		toggleTheme: 'Toggle light mode',
 		getInTouch: 'Get in touch',
+		footerCommand: 'echo "get in touch"',
 		emailLine: 'The fastest way to reach me is email:',
 		cvPdf: 'CV (PDF)',
 		skip: 'Skip to content'
@@ -50,6 +51,7 @@ export const ui = {
 		switchLabel: 'English',
 		toggleTheme: 'Açık modu aç/kapat',
 		getInTouch: 'İletişim',
+		footerCommand: 'echo "iletişim"',
 		emailLine: 'Bana en hızlı e-postayla ulaşabilirsiniz:',
 		cvPdf: 'CV (PDF)',
 		skip: 'İçeriğe geç'
