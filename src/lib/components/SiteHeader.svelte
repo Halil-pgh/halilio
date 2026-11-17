@@ -9,9 +9,47 @@
 	const lang = $derived(langOf(path));
 	const t = $derived(ui[lang]);
 
+	const onHome = $derived(path === t.home);
+
+	// On the home page, "work" takes over once the projects reach the upper third of the screen
+	// (clicking 1:work scrolls them right there), and "home" comes back when you scroll up again.
+	let scrolledToWork = $state(false);
+
+	$effect(() => {
+		if (!onHome) {
+			scrolledToWork = false;
+			return;
+		}
+		let frame = 0;
+		const update = () => {
+			frame = 0;
+			const work = document.getElementById('work');
+			scrolledToWork = !!work && work.getBoundingClientRect().top <= window.innerHeight / 3;
+		};
+		const schedule = () => {
+			if (!frame) frame = requestAnimationFrame(update);
+		};
+		update();
+		addEventListener('scroll', schedule, { passive: true });
+		addEventListener('resize', schedule, { passive: true });
+		return () => {
+			removeEventListener('scroll', schedule);
+			removeEventListener('resize', schedule);
+			cancelAnimationFrame(frame);
+		};
+	});
+
 	// The active "window" in the tmux bar. Project pages light up "work" without claiming to be it.
 	const active = $derived(
-		path === t.home ? 'home' : path === t.aboutHref ? 'about' : path.startsWith('/projects/') ? 'work' : ''
+		onHome
+			? scrolledToWork
+				? 'work'
+				: 'home'
+			: path === t.aboutHref
+				? 'about'
+				: path.startsWith('/projects/')
+					? 'work'
+					: ''
 	);
 </script>
 
@@ -24,7 +62,7 @@
 					<a
 						href={t.home}
 						class:active={active === 'home'}
-						aria-current={active === 'home' ? 'page' : undefined}><span class="num">0:</span>{t.homeLabel}</a
+						aria-current={onHome ? 'page' : undefined}><span class="num">0:</span>{t.homeLabel}</a
 					>
 				</li>
 				<li>
