@@ -11,14 +11,29 @@
 	let { children }: LayoutProps = $props();
 </script>
 
-<a class="skip" href="#content">{ui[langOf(page.url.pathname)].skip}</a>
-<SiteHeader />
-<main id="content">
-	{@render children()}
-</main>
-<SiteFooter />
+<!-- At least one screen tall, with the main part taking the spare room, so the footer stays at the
+     bottom of short pages (a 404, say) instead of riding up under the content. -->
+<div class="shell">
+	<a class="skip" href="#content">{ui[langOf(page.url.pathname)].skip}</a>
+	<SiteHeader />
+	<main id="content">
+		{@render children()}
+	</main>
+	<SiteFooter />
+</div>
 
 <style>
+	.shell {
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+		min-height: 100dvh;
+	}
+
+	main {
+		flex: 1 0 auto;
+	}
+
 	.skip {
 		position: absolute;
 		left: 12px;
