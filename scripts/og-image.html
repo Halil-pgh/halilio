@@ -1,29 +1,31 @@
 <!doctype html>
 <!--
 	The link-preview image (static/og.png). Regenerate after changing it:
-	google-chrome --headless=new --hide-scrollbars --window-size=1200,630 \
-		--screenshot=static/og.png scripts/og-image.html
+	google-chrome --headless=new --hide-scrollbars --allow-file-access-from-files \
+		--window-size=1200,630 --screenshot=static/og.png "file://$PWD/scripts/og-image.html"
 -->
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<style>
 			@font-face {
-				font-family: 'Fraunces';
-				src: url('../node_modules/@fontsource-variable/fraunces/files/fraunces-latin-ext-wght-normal.woff2') format('woff2');
+				font-family: 'JetBrains Mono';
+				font-style: normal;
+				font-weight: 100 800;
+				src: url('../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-ext-wght-normal.woff2') format('woff2');
 				unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 			}
 			@font-face {
-				font-family: 'Fraunces';
-				src: url('../node_modules/@fontsource-variable/fraunces/files/fraunces-latin-wght-normal.woff2') format('woff2');
-			}
-			@font-face {
-				font-family: 'Inter';
-				src: url('../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2') format('woff2');
+				font-family: 'JetBrains Mono';
+				font-style: normal;
+				font-weight: 100 800;
+				src: url('../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2') format('woff2');
 			}
 			@font-face {
 				font-family: 'JetBrains Mono';
-				src: url('../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2') format('woff2');
+				font-style: italic;
+				font-weight: 100 800;
+				src: url('../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-italic.woff2') format('woff2');
 			}
 
 			html,
@@ -38,61 +40,144 @@
 				box-sizing: border-box;
 				display: flex;
 				flex-direction: column;
-				justify-content: space-between;
-				padding: 72px 80px;
-				background: #faf9f6;
-				color: #17191c;
-				font-family: 'Inter', sans-serif;
-				border-top: 14px solid #0d7068;
+				background: #151515;
+				color: #d6d6d6;
+				font: 400 24px/1.5 'JetBrains Mono', monospace;
 			}
 
-			.mark {
-				display: grid;
-				place-items: center;
-				width: 64px;
-				height: 64px;
-				border-radius: 14px;
-				background: #0d7068;
-				color: #faf9f6;
-				font: 700 40px/1 'Fraunces', serif;
+			.bar {
+				display: flex;
+				height: 56px;
+				background: #1d1d1d;
+				border-bottom: 1px solid #333333;
+				padding-left: 64px;
+				font-size: 22px;
+			}
+
+			.bar span {
+				display: flex;
+				align-items: center;
+				padding: 0 16px;
+			}
+
+			.bar .brand {
+				background: #6fd49a;
+				color: #101010;
+				font-weight: 800;
+			}
+
+			.bar .active {
+				background: #d6d6d6;
+				color: #151515;
+			}
+
+			.bar .num {
+				padding: 0;
+				color: #9d9d9d;
+			}
+
+			.bar .active .num {
+				color: inherit;
+			}
+
+			main {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				padding: 0 64px;
+			}
+
+			p {
+				margin: 0;
+			}
+
+			.prompt {
+				color: #9d9d9d;
+				font-size: 22px;
+			}
+
+			.user {
+				color: #6fd49a;
+			}
+
+			.path {
+				color: #74b4f6;
+			}
+
+			.cmd {
+				color: #d6d6d6;
+			}
+
+			.box {
+				margin: 22px 7px 0;
+				padding: 40px 24px;
+				border: 2px solid #ec7a76;
+				outline: 2px solid #ec7a76;
+				outline-offset: 6px;
+				text-align: center;
 			}
 
 			h1 {
 				margin: 0;
-				font: 650 84px/1.02 'Fraunces', serif;
-				letter-spacing: -0.02em;
+				color: #f4f4f4;
+				font-size: 68px;
+				font-weight: 800;
+				line-height: 1.1;
+				letter-spacing: 0.02em;
 			}
 
-			p {
-				margin: 22px 0 0;
-				font-size: 32px;
-				line-height: 1.35;
-				color: #5a6370;
+			.who {
+				margin: 18px 0 0;
+				font-size: 22px;
+			}
+
+			.tagline {
+				margin: 6px 0 0;
+				color: #9d9d9d;
+				font-style: italic;
+				font-size: 22px;
 			}
 
 			.foot {
 				display: flex;
 				justify-content: space-between;
 				align-items: baseline;
-				font: 500 24px/1 'JetBrains Mono', monospace;
-				color: #5a6370;
+				margin-top: 40px;
+				font-size: 22px;
 			}
 
-			.foot strong {
-				color: #0d7068;
+			.ls span + span {
+				margin-left: 2ch;
+			}
+
+			.site {
+				color: #6fd49a;
 				font-weight: 700;
 			}
 		</style>
 	</head>
 	<body>
-		<div class="mark">h</div>
-		<div>
-			<h1>Halil İbrahim Öztürk</h1>
-			<p>Computer engineering student. I love the art of developing things.</p>
+		<div class="bar">
+			<span class="brand">halilio</span>
+			<span class="active"><span class="num">0:</span>home*</span>
+			<span><span class="num">1:</span>work</span>
+			<span><span class="num">2:</span>about</span>
+			<span><span class="num">3:</span>cv</span>
 		</div>
-		<div class="foot">
-			<span>Wolf · CPU Scheduler · Kings · Borsa · Topluluk</span>
-			<strong>halilio.dev</strong>
-		</div>
+		<main>
+			<p class="prompt"><span class="user">halil@izmir</span>:<span class="path">~</span>$ <span class="cmd">whoami</span></p>
+			<div class="box">
+				<h1>Halil İbrahim Öztürk</h1>
+				<p class="who">Computer Engineering · İzmir Institute of Technology · Class of 2027</p>
+				<p class="tagline">I love the art of developing things.</p>
+			</div>
+			<div class="foot">
+				<p class="ls">
+					<span style="color: #ec7a76">wolf/</span><span style="color: #f0c75e">scheduler/</span><span style="color: #74b4f6">kings/</span><span style="color: #a8d97c">borsa/</span><span style="color: #d891e8">topluluk/</span>
+				</p>
+				<span class="site">halilio.dev</span>
+			</div>
+		</main>
 	</body>
 </html>

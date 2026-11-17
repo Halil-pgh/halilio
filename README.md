@@ -17,11 +17,11 @@ Node 20.19+ works locally. SvelteKit is pinned to 2.x because 3.x needs Node 22.
 
 | What | Where |
 |---|---|
-| Project list: titles, one-line hooks, stacks, links, card media | `src/lib/projects.ts` |
+| Project list: titles, one-line hooks, stacks, links, card media, each one's color (`tint`) | `src/lib/projects.ts` |
 | Each project's page | `src/routes/projects/<slug>/+page.svelte` |
 | Home page (intro, project cards, experience) | `src/routes/+page.svelte` |
 | About page | `src/routes/about/+page.svelte` |
-| Colors, fonts, shared styles (light and dark) | `src/app.css` |
+| Colors, the mono font, shared styles (dark by default, light from the toggle) | `src/app.css` |
 | Videos, posters, screenshots | `static/media/` |
 | The CV PDF linked everywhere | `static/Halil_Ibrahim_Ozturk_CV.pdf` |
 | Link-preview image | `static/og.png`, made from `scripts/og-image.html` |
